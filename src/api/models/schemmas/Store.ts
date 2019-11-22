@@ -1,5 +1,12 @@
-import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import { Document, model, Schema } from 'mongoose'
+
+interface Sechema extends Document{
+  title?: string,
+  string?: string,
+  price?: number,
+  image?: string,
+  amount: number
+}
 
 const storeSchema = new Schema({
   title: {
@@ -17,4 +24,4 @@ const storeSchema = new Schema({
   timestamps: true
 })
 
-export default mongoose.model('store', storeSchema)
+export default model<Sechema>('store', storeSchema)

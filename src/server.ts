@@ -27,6 +27,7 @@ class Server {
       { useNewUrlParser: true, useUnifiedTopology: true }
     ).then(_ => console.log('database connection success'))
       .catch(err => console.log(`fail to connection on database ${err}`))
+    mongoose.set('useFindAndModify', false)
   }
 
   private routes (): void {

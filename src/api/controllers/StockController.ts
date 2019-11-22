@@ -4,16 +4,17 @@ import Store from '../models/schemmas/Store'
 
 class StockController {
   public async index (req: Request, res: Response): Promise<Response> {
-    console.log('oi')
-
-    let data
-    try {
-      data = await Store.find({})
-    } catch (error) {
-      console.log('error,', error)
-    }
+    const data = await Store.find({})
 
     return res.json({ data })
+  }
+
+  public async show (req: Request, res: Response): Promise<Response> {
+    const { id } = req.params
+
+    const store = await Store.findById(id)
+
+    return res.json({ store })
   }
 
   public async store (req: Request, res: Response): Promise<Response> {
@@ -26,12 +27,22 @@ class StockController {
     return res.json({ store })
   }
 
-  public async show (req: Request, res: Response): Promise<Response> {
+  public async update (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
-    const store = await Store.findById(id)
+    const store = await Store.findByIdAndUpdate(id, req.body, {
+      new: true
+    })
 
     return res.json({ store })
+  }
+
+  public async delete (req: Request, res: Response): Promise<Response> {
+    const { id } = req.params
+
+    await Store.findByIdAndRemove(id)
+
+    return res.json({ updated: 'success' })
   }
 }
 
