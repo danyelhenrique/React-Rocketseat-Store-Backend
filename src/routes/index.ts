@@ -1,15 +1,17 @@
 import { Router } from 'express'
 
 import StockController from '../api/controllers/StockController'
+import Validators from '../validators/stockValidator'
 
 const router = Router()
 
 router.get('/stock', StockController.index)
-router.get('/stock/:id', StockController.show)
+router.get('/stock/:id', Validators.validateShow, StockController.show)
 
-router.post('/stock', StockController.store)
-router.post('/stock/:id', StockController.update)
+router.post('/stock', Validators.validateStore, StockController.store)
 
-router.delete('/stock/:id', StockController.delete)
+router.put('/stock/:id', Validators.validateUpdate, StockController.update)
+
+router.delete('/stock/:id', Validators.validateDelete, StockController.delete)
 
 export default router

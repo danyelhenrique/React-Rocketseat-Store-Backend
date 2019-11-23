@@ -6,43 +6,60 @@ class StockController {
   public async index (req: Request, res: Response): Promise<Response> {
     const data = await Store.find({})
 
-    return res.json({ data })
+    try {
+      return res.json({ data })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 
   public async show (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
-    const store = await Store.findById(id)
-
-    return res.json({ store })
+    try {
+      const store = await Store.findById(id)
+      return res.json({ store })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 
   public async store (req: Request, res: Response): Promise<Response> {
     const { title, price, image, amount } = req.body
 
-    const store = await Store.create({
-      title, price, image, amount
-    })
+    try {
+      const store = await Store.create({
+        title, price, image, amount
+      })
 
-    return res.json({ store })
+      return res.json({ store })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 
   public async update (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
-    const store = await Store.findByIdAndUpdate(id, req.body, {
-      new: true
-    })
-
-    return res.json({ store })
+    try {
+      const store = await Store.findByIdAndUpdate(id, req.body, {
+        new: true
+      })
+      return res.json({ store })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 
   public async delete (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
-    await Store.findByIdAndRemove(id)
-
-    return res.json({ updated: 'success' })
+    try {
+      await Store.findByIdAndRemove(id)
+      return res.json({ updated: 'success' })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 }
 
