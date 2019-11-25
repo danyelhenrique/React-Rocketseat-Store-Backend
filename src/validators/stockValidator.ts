@@ -27,7 +27,7 @@ class ValidatorStock {
     try {
       await schema.validate(req.body)
     } catch (error) {
-      return res.json({ error })
+      return res.status(400).json({ error })
     }
 
     return next()

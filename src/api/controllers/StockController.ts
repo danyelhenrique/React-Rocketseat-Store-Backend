@@ -3,17 +3,16 @@ import { Request, Response } from 'express'
 import Store from '../models/schemmas/Store'
 
 class StockController {
-  public async index(req: Request, res: Response): Promise<Response> {
+  public async index (req: Request, res: Response): Promise<Response> {
     try {
       const data = await Store.find({})
       return res.json({ data })
     } catch (error) {
       return res.status(400).json({ error })
     }
-
   }
 
-  public async show(req: Request, res: Response): Promise<Response> {
+  public async show (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
     try {
@@ -24,7 +23,7 @@ class StockController {
     }
   }
 
-  public async store(req: Request, res: Response): Promise<Response> {
+  public async store (req: Request, res: Response): Promise<Response> {
     const { title, price, image, amount } = req.body
 
     try {
@@ -38,7 +37,7 @@ class StockController {
     }
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  public async update (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
     try {
@@ -51,7 +50,7 @@ class StockController {
     }
   }
 
-  public async delete(req: Request, res: Response): Promise<Response> {
+  public async delete (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
     try {

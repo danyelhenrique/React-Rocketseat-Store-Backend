@@ -22,6 +22,6 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "jest"],
   rules: {
-    "jest/no-test-callback": false
+    "jest/no-test-callback": "off"
   }
 };
