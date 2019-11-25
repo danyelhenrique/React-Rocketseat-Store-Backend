@@ -1,8 +1,8 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import * as yup from 'yup'
 
 class ValidatorStock {
-  public async validateShow (req: Request, res: Response, next: Function): Promise<Response | Function> {
+  public async validateShow (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const schema = yup.object().shape({
       id: yup.string().required()
     })
@@ -16,7 +16,7 @@ class ValidatorStock {
     return next()
   }
 
-  public async validateStore (req: Request, res: Response, next: Function): Promise<Response | Function> {
+  public async validateStore (req: Request, res: Response, next: Function): Promise<Response | void> {
     const schema = yup.object().shape({
       title: yup.string().required(),
       price: yup.string().required(),
@@ -33,7 +33,7 @@ class ValidatorStock {
     return next()
   }
 
-  public async validateUpdate (req: Request, res: Response, next: Function): Promise<Response | Function> {
+  public async validateUpdate (req: Request, res: Response, next: Function): Promise<Response | void> {
     const schema = yup.object().shape({
       id: yup.string().required()
     })
@@ -47,7 +47,7 @@ class ValidatorStock {
     return next()
   }
 
-  public async validateDelete (req: Request, res: Response, next: Function): Promise<Response | Function> {
+  public async validateDelete (req: Request, res: Response, next: Function): Promise<Response | void> {
     const schema = yup.object().shape({
       id: yup.string().required()
     })

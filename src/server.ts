@@ -9,7 +9,7 @@ import routes from './routes'
 class Server {
   public express: express.Application;
 
-  constructor () {
+  constructor() {
     this.express = express()
 
     this.middlewares()
@@ -17,20 +17,21 @@ class Server {
     this.routes()
   }
 
-  private middlewares (): void {
+  private middlewares(): void {
     this.express.use(cors({}))
     this.express.use(express.json())
   }
 
-  private database (): void {
+  private database(): void {
     mongoose.connect(mongoUrl,
       { useNewUrlParser: true, useUnifiedTopology: true }
-    ).then(_ => console.log('database connection success'))
-      .catch(err => console.log(`fail to connection on database ${err}`))
+    )
+    // .then(_ => console.log('database connection success'))
+    // .catch(err => console.log(`fail to connection on database ${err}`))
     mongoose.set('useFindAndModify', false)
   }
 
-  private routes (): void {
+  private routes(): void {
     this.express.use(routes)
     this.express.get('/', (req, res) => {
       res.send('oi')
