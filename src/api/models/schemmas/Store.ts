@@ -1,11 +1,11 @@
 import { Document, model, Schema } from 'mongoose'
 
-interface Sechema extends Document{
-  title?: string,
-  string?: string,
-  price?: number,
-  image?: string,
-  amount: number
+interface Sechema extends Document {
+    title?: string,
+    string?: string,
+    price?: number,
+    image?: string,
+    amount: number
 }
 
 const storeSchema = new Schema({

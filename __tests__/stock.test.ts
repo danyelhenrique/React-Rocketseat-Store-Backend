@@ -2,9 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import mongoUrl from '../../src/config/mongoDB'
-import app from '../../src/server'
+import mongoUrl from '../src/config/mongoDB'
+import app from '../src/server'
 import request from 'supertest'
+import factory from '../utils/factories'
 
 import { MongoClient } from 'mongodb'
 let connection
@@ -23,8 +24,8 @@ afterAll(async () => {
 })
 
 beforeEach(async () => {
-  await db.collection('store').deleteMany({});
-});
+  await db.collection('store').deleteMany({})
+})
 
 describe('StockController', function () {
   it('responds status 200 StockController[index]', async function () {
@@ -36,12 +37,7 @@ describe('StockController', function () {
   })
 
   it('responds status 200 StockController[show]', async function () {
-    const data = {
-      amount: 3,
-      image: "HTTP",
-      price: 22,
-      title: "phone",
-    }
+    const data: any = await factory.create('Store')
 
     const response = await request(app)
       .post('/stock')
@@ -52,7 +48,6 @@ describe('StockController', function () {
   })
 
   it('responds status 400 with no data informed StockController[show]', async function () {
-
     const response = await request(app)
       .post('/stock')
       .set('Accept', 'application/json')
@@ -62,11 +57,11 @@ describe('StockController', function () {
   })
 
   it('responds status 400 with wrong data informed StockController[show]', async function () {
-    const data = {
-      amount: 'two',
-      image: "HTTP",
-      price: '$22',
-      title: 1,
+    const data: any = {
+      amount: '22,e5',
+      image: 'http://',
+      price: '22a,5',
+      title: 1
     }
 
     const response = await request(app)
@@ -79,15 +74,7 @@ describe('StockController', function () {
 
   it('responds status 200 and created data in database StockController[show]', async function () {
     const store = db.collection('store')
-
-    const data = {
-      amount: 3,
-      image: "HTTP",
-      price: 22,
-      title: "phone",
-    }
-
-    store.insertOne(data)
+    const data: any = await factory.create('Store')
 
     const response = await request(app)
       .post('/stock')
@@ -95,6 +82,5 @@ describe('StockController', function () {
       .send(data)
 
     expect(response.body.store.title).toBe(data.title)
-
   })
 })

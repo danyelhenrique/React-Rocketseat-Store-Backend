@@ -3,15 +3,15 @@ import * as yup from 'yup'
 
 class ValidatorStock {
   public async validateShow (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-    const schema = yup.object().shape({
-      id: yup.string().required()
-    })
+    // const schema = yup.object().shape({
+    //     id: yup.number().required()
+    // })
 
-    try {
-      await schema.validate(req.body)
-    } catch (error) {
-      return res.json({ error })
-    }
+    // try {
+    //     await schema.validate(req.body)
+    // } catch (error) {
+    //     return res.status(400).json({ error })
+    // }
 
     return next()
   }
